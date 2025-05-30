@@ -2,12 +2,12 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="Legends Never Die Hedge Fund", layout="wide")
-st.title("💼 Legends Never Die Hedge Fund")
+st.title("💼 Legacy X Capital")
 
 # Load CSV exported from Airtable
 @st.cache_data
 def load_data():
-    df = pd.read_csv("/Users/Dan/Desktop/Hedge Fund Dash/Forward Testing Results/Strategies-👁️ Watch List.csv")
+    df = pd.read_csv("/Users/natalielewis/Desktop/Programming/Legacy-X-Capital-Dashboard/Hedge Fund Dash/Forward Testing Results/Strategies-👁️ Watch List.csv")
 
     # Clean column names
     df.columns = [col.strip() for col in df.columns]
