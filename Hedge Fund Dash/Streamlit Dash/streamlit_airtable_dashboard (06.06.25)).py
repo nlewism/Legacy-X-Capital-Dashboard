@@ -148,8 +148,7 @@ filtered_df = df[df["Instrument"].isin(selected_instruments)]
 #st.dataframe(filtered_df, use_container_width=True)
 #st.write(filtered_df.drop(columns=["IMG"]).to_html(escape=False), unsafe_allow_html=True)
 #st.write(filtered_df.to_html(escape=False), unsafe_allow_html=True)
-#st.dataframe(filtered_df.drop(columns=["IMG"]), use_container_width=True)
-st.dataframe(filtered_df.iloc[:6].drop(columns=["IMG"]), use_container_width=True)
+st.dataframe(filtered_df.drop(columns=["IMG"]), use_container_width=True)
 
 #st.write(filtered_df.to_html(escape=False), unsafe_allow_html=True)
 

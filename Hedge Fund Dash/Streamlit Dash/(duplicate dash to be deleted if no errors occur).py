@@ -53,23 +53,7 @@ def load_data():
     #df["Max Drawdown$"] = ""
     df["Reward-to-Risk Ratio"] = df["Avg Annual Return"] / df["Max Drawdown%"]
     df["RMD > 2"] = df["Reward-to-Risk Ratio"].apply(lambda x: "Yes" if x > 2 else "No")
-
-    drive_img_links = {
-    "USD/JPY_30 minutes": "https://drive.google.com/uc?export=view&id=1WqcEYMcp_5ktXartFFxTOxYBBNAyY7by",
-    "EUR/USD_15 minutes": "https://drive.google.com/uc?export=view&id=1evOm21Q_xHXDVapykydGfyXvEHv-ro9G",
-    "AUD/USD_30 minutes": "https://drive.google.com/uc?export=view&id=1W0cglr5cfTlJddN5-c7Nogj-7KJt1Opn",
-    "EUR/USD_45 minutes": "https://drive.google.com/uc?export=view&id=12oQyXT5PFhXXoJMypGuAYNvAM8rmYS5O",
-    "NZD/USD_45 minutes": "https://drive.google.com/uc?export=view&id=1j0m1FgMQTVEq9KVACesS5edb4BX4f_Yx"
-}
-    
-    df["IMG"] = df.apply(
-    lambda row: drive_img_links.get(f"{str(row['Instrument']).strip()}_{str(row['Settings']).strip()}", None),
-    axis=1
-)
-    df["Equity Curve"] = df["IMG"].apply(
-    lambda url: f"{url}" if pd.notna(url) and isinstance(url, str) else ""
-)
-    #df["IMG"] = ""
+    df["IMG"] = ""
     #df["IMG"] = df["Equity Curve TV URL"]
     #df["IMG"] = df["Equity Curve TV URL"].apply(lambda url: f"[View]({url})" if pd.notna(url) else "")
     new_row = {
@@ -92,6 +76,11 @@ def load_data():
     "IMG": "/mnt/data/image (6).png"  # Optional if you want to show an image
 }
     df.loc[len(df)] = new_row
+
+
+
+
+
 
 
 
@@ -123,7 +112,7 @@ def load_data():
     final_columns = [
         "Instrument", "Status", "Level", "Settings", "Win Rate", "Total Trades",
         "Winning Trades", "PF", "Net Profit $", "Years", "Avg Annual Return",
-        "Max Drawdown%", "Reward-to-Risk Ratio", "RMD > 2", "IMG","Equity Curve"
+        "Max Drawdown%", "Reward-to-Risk Ratio", "RMD > 2", "IMG"
     ]
 
     return df[final_columns]
@@ -145,20 +134,13 @@ selected_instruments = st.multiselect("🎯 Filter by Instrument", instruments, 
 filtered_df = df[df["Instrument"].isin(selected_instruments)]
 
 # Display the table
-#st.dataframe(filtered_df, use_container_width=True)
-#st.write(filtered_df.drop(columns=["IMG"]).to_html(escape=False), unsafe_allow_html=True)
-#st.write(filtered_df.to_html(escape=False), unsafe_allow_html=True)
-#st.dataframe(filtered_df.drop(columns=["IMG"]), use_container_width=True)
-st.dataframe(filtered_df.iloc[:6].drop(columns=["IMG"]), use_container_width=True)
+st.dataframe(filtered_df, use_container_width=True)
 
 #st.write(filtered_df.to_html(escape=False), unsafe_allow_html=True)
 
 #st.markdown("## 📈 Equity Curves")
 
 #for _, row in filtered_df.iterrows():
-#    img_url = row.get("IMG", "")
-#    if isinstance(img_url, str) and img_url.startswith("http"):
-#        st.markdown(f"### {row['Instrument']} - {row["Settings"]}")
-#        st.write(f"Lookup key: {row['Instrument']}_{["Settings"]}")
-#        st.write(f"Image URL: {img_url}")
-#        st.image(img_url, width=700)
+#    if pd.notna(row["IMG"]):
+#        st.markdown(f"### {row['Instrument']}")
+#        st.image(row["IMG"], width=700)
